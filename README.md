@@ -1,8 +1,24 @@
 # Pyfer
 
-Package description: Python implementation of the `infer` R package, that offers a tidy way of developing statistical inference built on top of Pandas.
+|Name |Github |
+|-|-|
+|Gabriel Bogo|[@GabrielBogo](https://github.com/GabrielBogo)|
+|Yuwei Lei |[@liuyuwei169](https://github.com/liuyuwei169)|
+|Davy Guo |[@DavyGuo](https://github.com/DavyGuo)|
+|Mohamad Makkaoui |[@makka3](https://github.com/makka3)|
 
-See list of functions below:  
+
+Package description: Python implementation of the `infer` R package, that offers a tidy way of developing statistical inference built on top of Pandas. 
+
+The `infer` package in R streamlines the process of reshuffling and bootstrapping of samples, calculating summary statistics and confidence intervals, and performing hypothesis tests for statistical inference. It does this using a combination of functions that are built with the emphasis on clear expressive code and using correct statistical grammar that explains the way the values are calculated and the tests are evaluated in statistical inference.
+
+With this package as the inspiration, `pyfer` will have four main functions (`specify`,`generate`,`calculate`,`get_ci`) for the first iteration. These functions will, given a data frame and the specified response variable; calculate summary statistics and confidence intervals for the response variable. Further details follow in the description of the functions below.
+
+Where does `pyfer` fit into the Python ecosystem?
+
+Currently, there isn't a package in Python's ecosystem (according to our not so thorough research) that does a great job at replicating the `infer` package's functionality and easy-of-use. Therefore, we hope that this package will provide the basic tools to perform statistical inference using expressive code in Python.
+
+## Functions
 
 ### `specify`
 
