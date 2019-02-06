@@ -57,14 +57,3 @@ Output
 Dataframe (with 3 columns): Statistic (Point Estimate), Lower Bound, Upper Bound
 
 
-
-Collapse 
-
-Message Input
-
-
-Message 524
-
-Thread
-562_regr-2
-
