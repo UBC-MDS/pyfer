@@ -1,4 +1,4 @@
-#Pyfer
+# Pyfer
 
 Package description: Python implementation of the `infer` R package, that offers a tidy way of developing statistical inference built on top of Pandas.
 
