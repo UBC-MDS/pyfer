@@ -1,8 +1,8 @@
-Pyfer
+#Pyfer
 
 Package description: Python implementation of the `infer` R package, that offers a tidy way of developing statistical inference built on top of Pandas.
 
-### specify
+### `specify`
 
 **Function Description**: choose specific columns to feed the subsequent pipeline.
 
@@ -15,7 +15,7 @@ Output:
 
 - Dataframe with 1 column representing the response variable
 
-### generate
+### `generate`
 
 **Function Description**: generate multiple bootstrap samples of the response variable.
 
@@ -29,7 +29,7 @@ Output:
 
 - Dataframe with two columns: response variable and sample id.
 
-### calculate
+### `calculate`
 
 **Function Description**: calculate a summarizing statistic for each bootstrap sample.
 
@@ -42,7 +42,9 @@ Output
 
 Dataframe with length equal to number of resampled groups.
 
-### get_ci
+### `get_ci`
+**Function Description**: return the bootstrap confidence interval for a point estimate.
+
 
 Inputs:
 
