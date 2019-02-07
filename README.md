@@ -8,7 +8,7 @@
 |Mohamad Makkaoui |[@makka3](https://github.com/makka3)|
 
 
-Package description: Python implementation of the `infer` R package, that offers a tidy way of developing statistical inference built on top of Pandas. 
+Python implementation of the `infer` R package, that offers a tidy way of developing statistical inference built on top of Pandas.
 
 The `infer` package in R streamlines the process of reshuffling and bootstrapping of samples, calculating summary statistics and confidence intervals, and performing hypothesis tests for statistical inference. It does this using a combination of functions that are built with the emphasis on clear expressive code and using correct statistical grammar that explains the way the values are calculated and the tests are evaluated in statistical inference.
 
@@ -35,7 +35,7 @@ Output:
 
 ### `generate`
 
-**Function Description**: generate multiple bootstrap samples for your a given response variable.
+**Function Description**: generate multiple bootstrap samples for your response variable.
 
 Inputs:  
 
