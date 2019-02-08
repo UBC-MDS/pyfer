@@ -25,7 +25,7 @@ def test_calculate(calculate,df):
   string:  
     "All tests pass. Success!" if all test are passed
     Raising error if some test is not passed.
-    '''
+  '''
     assert type(df_output) == "pandas.core.frame.DataFrame", "The type of the output is wrong"
     assert df_output.shape == (10,2), "The shape of the output is wrong" 
     assert type(df_output['mean'][0])== "numpy.int64", "The type of the output value is wrong"
