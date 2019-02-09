@@ -79,7 +79,15 @@ class TestCalculate:
         '''
         df_input = pd.DataFrame()
         with pytest.raises(Exception):
-            df_output = calculate(data=df_input, n_samples=3)
+            df_output = calculate(data=df_input)
+
+    def test_statistic_not_implemented():
+        '''
+        Test function response with a statistic that has not been implemented
+        '''
+        df_input = pd.DataFrame()
+        with pytest.raises(Exception):
+            df_output = calculate(data=df_input, stat="asdfasdf")
 
 class TestGet_ci():
     pass
