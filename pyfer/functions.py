@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def specify(data, response):
+def specify(data, response, explanatory=None):
     '''
     Choose specific columns to feed the subsequent pipeline.
 
