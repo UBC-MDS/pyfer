@@ -59,7 +59,7 @@ def calculate(data, stat="mean"):
     '''
     return
 
-def get_ci(data, alpha=0.05):
+def get_ci(data, alpha=0.05, point_estimate=None):
     '''
     Return the bootstrap confidence interval for a point estimate.
 
