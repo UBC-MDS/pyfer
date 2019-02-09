@@ -20,7 +20,7 @@ Currently, there isn't a package in Python's ecosystem (according to our not so 
 
 ## Functions
 
-**specify(data, response)**  
+**specify(data, response, explanatory)**  
 
     Choose specific columns to feed the subsequent pipeline.
 
