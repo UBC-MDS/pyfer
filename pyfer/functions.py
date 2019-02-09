@@ -19,7 +19,7 @@ def specify(data, response):
         Dataframe containing one column for response variable and zero or more columns for the explanatory variables. The first column is always the response.
     '''
 
-    return pd.DataFrame()
+    return
 
 def generate(data, n_samples, type="boostrap"):
     '''
@@ -39,7 +39,7 @@ def generate(data, n_samples, type="boostrap"):
     pd.DataFrame:
         Dataframe containing all resamples stacked vertically. Will keep all columns from the input data and an additional sample_id column to identify individual resamples.
     '''
-    return pd.DataFrame()
+    return
 
 def calculate(data, stat="mean"):
     '''
@@ -57,7 +57,7 @@ def calculate(data, stat="mean"):
     pd.DataFrame:
         Summarized data. Each row contains the summary statistic for a given resample.
     '''
-    return pd.DataFrame()
+    return
 
 def get_ci(data, alpha=0.05):
     '''
@@ -75,4 +75,4 @@ def get_ci(data, alpha=0.05):
     pd.DataFrame
         Dataframe containing 1 row and columns for Statistic (Point Estimate), significance level, Lower Bound and Upper Bound.
     '''
-    return pd.DataFrame()
+    return
