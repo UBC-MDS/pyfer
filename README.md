@@ -3,7 +3,7 @@
 |Name |Github |
 |-|-|
 |Gabriel Bogo|[@GabrielBogo](https://github.com/GabrielBogo)|
-|Yuwei Lei |[@liuyuwei169](https://github.com/liuyuwei169)|
+|Yuwei Liu |[@liuyuwei169](https://github.com/liuyuwei169)|
 |Davy Guo |[@DavyGuo](https://github.com/DavyGuo)|
 |Mohamad Makkaoui |[@makka3](https://github.com/makka3)|
 
