@@ -74,7 +74,7 @@ Currently, there isn't a package in Python's ecosystem (according to our not so 
         Summarized data. Each row contains the summary statistic for a given resample.
 
 
-**get_ci(data, alpha=0.05)**  
+**get_ci(data, alpha=0.05, point_estimate=None)**  
 
     Return the bootstrap confidence interval for a point estimate.
 

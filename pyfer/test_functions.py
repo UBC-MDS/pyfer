@@ -1,12 +1,12 @@
 import pytest
 import pandas as pd
-from .functions import generate, calculate
+from .functions import generate, calculate, get_ci
 
 class TestSpecify():
     pass
 
 class TestGenerate():
-    def test_shape_output():
+    def test_shape_output(self):
         '''
         Test number of rows and columns in the output match
         '''
@@ -15,7 +15,7 @@ class TestGenerate():
 
         assert df_output.shape == (9,1)
 
-    def test_empty_dataframe():
+    def test_empty_dataframe(self):
         '''
         Test function response with an emtpy dataframe, expect error.
         '''
@@ -23,7 +23,7 @@ class TestGenerate():
         with pytest.raises(Exception):
             df_output = generate(data=df_input, n_samples=3)
 
-    def test_zero_n_samples():
+    def test_zero_n_samples(self):
         '''
         Test function response with when n_samples = 0, expect empty DataFrame
         '''
@@ -32,7 +32,7 @@ class TestGenerate():
 
         assert df_output.empty == True
 
-    def test_samples_exist():
+    def test_samples_exist(self):
         '''
         Test whether all bootstrap values exist in the original sample.
         '''
@@ -41,7 +41,7 @@ class TestGenerate():
 
         assert df_output.response.isin(df_input.response).all()
 
-    def test_overflow():
+    def test_overflow(self):
         '''
         Test function behavior when number of samples is too high.
         '''
@@ -50,7 +50,7 @@ class TestGenerate():
           df_output = generate(data=df_input, n_samples=1e10000000)
 
 class TestCalculate:
-    def test_shape_output():
+    def test_shape_output(self):
         '''
         Test that the output's shape is coming out as expected.
         '''
@@ -63,7 +63,7 @@ class TestCalculate:
 
         assert df_output.shape == (3,2)
 
-    def test_output_statistic():
+    def test_output_statistic(self):
         '''
         Test that the output's statistic is coming out as expected.
         '''
@@ -73,7 +73,7 @@ class TestCalculate:
         assert df_output['mean'].dtype == "numpy.int64"
         assert df_output['mean'][3] == 3.5
 
-    def test_empty_dataframe():
+    def test_empty_dataframe(self):
         '''
         Test function response with an emtpy dataframe, expect error.
         '''
@@ -81,7 +81,7 @@ class TestCalculate:
         with pytest.raises(Exception):
             df_output = calculate(data=df_input)
 
-    def test_statistic_not_implemented():
+    def test_statistic_not_implemented(self):
         '''
         Test function response with a statistic that has not been implemented
         '''
@@ -90,32 +90,67 @@ class TestCalculate:
             df_output = calculate(data=df_input, stat="asdfasdf")
 
 class TestGet_ci():
-    pass
-    #
-    # #Test get_ci
-    # def test_get_ci(get_ci,df,n):
-    #   df = pd.read_csv("test_data_get_ci.csv")
-    #   df_output = get_ci(df, n)
-    #   '''
-    #   Test if the `get_ci` function is working properly
-    #
-    #   Parameters:
-    #   `test_get_ci`:
-    #       The function being test
-    #   df: dataFrame
-    #       A Data frame using for test, which only contains 2 columns: sample_id, reponse
-    #
-    #   Returns:
-    #   string:
-    #       "All tests pass. Success!" if all test are passed
-    #       Raising error if some test is not passed.
-    #   '''
-    #   assert type(n)== "numpy.int64" or type(n)== "float", "The type of interval is wrong"
-    #   assert n <= 100 or n>=0, "The value of interval should be in (0,100)"
-    #   assert type(df_output) == "pandas.core.frame.DataFrame", "The type of the output is wrong"
-    #   assert df_output.shape == (3,1), "The shape of the output is wrong"
-    #   assert type(df_output['mean'][0])== "numpy.int64", "The type of the output value is wrong"
-    #   assert df_output['mean']== 38.559, "The value of point estimate is wrong"
-    #   assert get_ci(df, 95)['lower_bound] == 30, "The value of lower bound is wrong"
-    #   assert get_ci(df, 95)['upper_bound] == 42, "The value of upper bound is wrong"
-    #   print("All test passed")
+
+    def test_output_is_dataframe(self):
+        '''
+        Test that output is a pd.DataFrame, not pd.Series
+        '''
+        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+                          data=[
+                          [1,1],[2,2],[3,3],[4,4],[5,5],
+                          ])
+        df_output = get_ci(df_input, alpha=0.2)
+
+        assert isinstance(df_output, pd.DataFrame)
+
+    def test_output_shape(self):
+        '''
+        Test that output shape comes out as expected
+        '''
+        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+                          data=[
+                          [1,1],[2,2],[3,3],[4,4],[5,5],
+                          [6,6],[7,7],[8,8],[9,9],[10,10],
+                          ])
+        df_output = get_ci(df_input, alpha=0.2)
+
+        assert df_output.shape == (1,4)
+
+    def test_correct_bounds(self):
+        '''
+        Test that bounds are coming out as expected
+        '''
+        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+                          data=[
+                          [1,1],[2,2],[3,3],[4,4],[5,5],
+                          [6,6],[7,7],[8,8],[9,9],[10,10],
+                          ])
+        df_output = get_ci(df_input, alpha=0.2)
+
+        assert df_output.lower_bound.iloc[0] == 2
+        assert df_output.upper_bound.iloc[0] == 8
+
+    def test_wrong_signif_level(self):
+        '''
+        Test that error is thrown when significance levels are implausible
+        '''
+        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+                          data=[
+                          [1,1],[2,2],[3,3],[4,4],[5,5],
+                          [6,6],[7,7],[8,8],[9,9],[10,10],
+                          ])
+        with pytest.raises(Exception):
+            df_output = get_ci(df_input, alpha=1.3)
+
+    def test_point_estimate(self):
+        '''
+        Test that the point estimate is being reported correctly.
+        '''
+        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+                          data=[
+                          [1,1],[2,2],[3,3],[4,4],[5,5],
+                          [6,6],[7,7],[8,8],[9,9],[10,10],
+                          ])
+        df_output = get_ci(df_input, point_estimate=3.5)
+
+        assert df_output.point_estimate.iloc[0] == pytest.approx(3.5)
