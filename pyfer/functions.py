@@ -18,6 +18,16 @@ def specify(data, response, explanatory=None):
     pd.DataFrame:
         Dataframe containing one column for response variable and zero or more columns for the explanatory variables. The first column is always the response.
     '''
+    if not isinstance(data, pd.DataFrame):
+        raise TypeError("Input should be data frame")
+    if not isinstance(response, str):
+        raise TypeError("Response should be string")
+    if data.shape[1] < 2:
+        raise ValueError("Column number should large than 2")
+    if response not in data.columns:
+        raise ValueError("Column name doesn't exist")
+
+
     output = data[response]
     return pd.DataFrame(output)
 
