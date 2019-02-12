@@ -18,7 +18,7 @@ class TestSpecify():
                             response="response",
                             explanatory=["explan1", "explan2"])
 
-        assert df_output.shape == (len(df_input), 3)
+        assert df_output.shape == (len(df_input), 1)
 
     def test_expected_output(self):
         '''
@@ -28,7 +28,7 @@ class TestSpecify():
                                 data=[[1,2],[2,3],[3,4]])
         df_output = specify(data=df_input, response="response")
 
-        assert df_output.columns == ["response"]
+        assert df_output.columns == "response"
 
     def test_wrong_response_col(self):
         '''
