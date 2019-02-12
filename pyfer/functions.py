@@ -18,8 +18,8 @@ def specify(data, response, explanatory=None):
     pd.DataFrame:
         Dataframe containing one column for response variable and zero or more columns for the explanatory variables. The first column is always the response.
     '''
-
-    return
+    output = data[response]
+    return pd.DataFrame(output)
 
 def generate(data, n_samples, type="boostrap"):
     '''
