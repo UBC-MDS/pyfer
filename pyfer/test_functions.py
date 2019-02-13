@@ -27,8 +27,7 @@ class TestSpecify():
         df_input = pd.DataFrame(columns=["response", "unused_col"],
                                 data=[[1,2],[2,3],[3,4]])
         df_output = specify(data=df_input, response="response")
-        import pdb
-        pdb.set_trace()
+        
         assert df_output.columns.tolist() == ["response"]
 
     def test_wrong_response_col(self):
