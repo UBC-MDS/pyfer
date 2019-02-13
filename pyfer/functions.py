@@ -18,8 +18,19 @@ def specify(data, response, explanatory=None):
     pd.DataFrame:
         Dataframe containing one column for response variable and zero or more columns for the explanatory variables. The first column is always the response.
     '''
+    if not isinstance(data, pd.DataFrame):
+        raise TypeError("Input should be a Pandas DataFrame")
+    if not isinstance(response, str):
+        raise TypeError("Response should be of type str")
 
-    return
+    columns = [response]
+
+    if explanatory:
+        columns.extend(explanatory)
+        
+    df_output = data[columns]
+
+    return df_output
 
 def generate(data, n_samples, type="boostrap"):
     '''
