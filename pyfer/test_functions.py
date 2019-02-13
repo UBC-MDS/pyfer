@@ -18,7 +18,7 @@ class TestSpecify():
                             response="response",
                             explanatory=["explan1", "explan2"])
 
-        assert df_output.shape == (len(df_input), 1)
+        assert df_output.shape == (len(df_input), 3)
 
     def test_expected_output(self):
         '''
@@ -27,8 +27,9 @@ class TestSpecify():
         df_input = pd.DataFrame(columns=["response", "unused_col"],
                                 data=[[1,2],[2,3],[3,4]])
         df_output = specify(data=df_input, response="response")
-
-        assert df_output.columns == "response"
+        import pdb
+        pdb.set_trace()
+        assert df_output.columns.tolist() == ["response"]
 
     def test_wrong_response_col(self):
         '''
