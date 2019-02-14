@@ -70,7 +70,7 @@ def calculate(data, stat="mean"):
     '''
     return
 
-def get_ci(data, alpha=0.05, point_estimate=None):
+def get_ci(data, level=0.95, point_estimate=None):
     '''
     Return the bootstrap confidence interval for a point estimate.
 
@@ -86,9 +86,7 @@ def get_ci(data, alpha=0.05, point_estimate=None):
     pd.DataFrame
         Dataframe containing 1 row and columns for Statistic (Point Estimate), significance level, Lower Bound and Upper Bound.
     '''
-    
-    def get_conf_i(data,level):
-    
+        
     #Checking if input is dataframe
     if not isinstance(data,pd.DataFrame):
         raise TypeError("Input should be a Pandas dataframe")
