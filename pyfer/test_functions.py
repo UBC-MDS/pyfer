@@ -135,7 +135,7 @@ class TestGet_ci():
                           data=[
                           [1,1],[2,2],[3,3],[4,4],[5,5],
                           ])
-        df_output = get_ci(df_input, alpha=0.2)
+        df_output = get_ci(df_input, level=0.8)
 
         assert isinstance(df_output, pd.DataFrame)
 
@@ -148,23 +148,23 @@ class TestGet_ci():
                           [1,1],[2,2],[3,3],[4,4],[5,5],
                           [6,6],[7,7],[8,8],[9,9],[10,10],
                           ])
-        df_output = get_ci(df_input, alpha=0.2)
+        df_output = get_ci(df_input, level=0.8)
 
-        assert df_output.shape == (1,4)
+        assert df_output.shape == (1,3)
 
     def test_correct_bounds(self):
         '''
         Test that bounds are coming out as expected
         '''
         df_input = pd.DataFrame(columns=["mean", "sample_id"],
-                          data=[
+                          data=[[0,0],
                           [1,1],[2,2],[3,3],[4,4],[5,5],
-                          [6,6],[7,7],[8,8],[9,9],[10,10],
+                          [6,6],[7,7],[8,8],[9,9],[10,10]
                           ])
-        df_output = get_ci(df_input, alpha=0.2)
+        df_output = get_ci(df_input, level=0.8)
 
-        assert df_output.lower_bound.iloc[0] == 2
-        assert df_output.upper_bound.iloc[0] == 8
+        assert df_output.lower_bound.iloc[0] == 1
+        assert df_output.upper_bound.iloc[0] == 9
 
     def test_wrong_signif_level(self):
         '''
