@@ -131,7 +131,7 @@ class TestGet_ci():
         '''
         Test that output is a pd.DataFrame, not pd.Series
         '''
-        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+        df_input = pd.DataFrame(columns=["stat", "sample_id"],
                           data=[
                           [1,1],[2,2],[3,3],[4,4],[5,5],
                           ])
@@ -143,7 +143,7 @@ class TestGet_ci():
         '''
         Test that output shape comes out as expected
         '''
-        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+        df_input = pd.DataFrame(columns=["stat", "sample_id"],
                           data=[
                           [1,1],[2,2],[3,3],[4,4],[5,5],
                           [6,6],[7,7],[8,8],[9,9],[10,10],
@@ -156,21 +156,21 @@ class TestGet_ci():
         '''
         Test that bounds are coming out as expected
         '''
-        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+        df_input = pd.DataFrame(columns=["stat", "sample_id"],
                           data=[[0,0],
                           [1,1],[2,2],[3,3],[4,4],[5,5],
                           [6,6],[7,7],[8,8],[9,9],[10,10]
                           ])
         df_output = get_ci(df_input, level=0.8)
 
-        assert df_output.lower_bound.iloc[0] == 1
-        assert df_output.upper_bound.iloc[0] == 9
+        assert df_output['Lower Bound'].iloc[0] == pytest.approx(1.0)
+        assert df_output['Upper Bound'].iloc[0] == pytest.approx(9.0)
 
     def test_wrong_signif_level(self):
         '''
         Test that error is thrown when significance levels are implausible
         '''
-        df_input = pd.DataFrame(columns=["mean", "sample_id"],
+        df_input = pd.DataFrame(columns=["stat", "sample_id"],
                           data=[
                           [1,1],[2,2],[3,3],[4,4],[5,5],
                           [6,6],[7,7],[8,8],[9,9],[10,10],
@@ -178,15 +178,15 @@ class TestGet_ci():
         with pytest.raises(Exception):
             df_output = get_ci(df_input, alpha=1.3)
 
-    def test_point_estimate(self):
-        '''
-        Test that the point estimate is being reported correctly.
-        '''
-        df_input = pd.DataFrame(columns=["mean", "sample_id"],
-                          data=[
-                          [1,1],[2,2],[3,3],[4,4],[5,5],
-                          [6,6],[7,7],[8,8],[9,9],[10,10],
-                          ])
-        df_output = get_ci(df_input, point_estimate=3.5)
+    #def test_point_estimate(self):
+    #    '''
+    #    Test that the point estimate is being reported correctly.
+    #    '''
+    #    df_input = pd.DataFrame(columns=["mean", "sample_id"],
+    #                      data=[
+    #                      [1,1],[2,2],[3,3],[4,4],[5,5],
+    #                      [6,6],[7,7],[8,8],[9,9],[10,10],
+    #                      ])
+    #    df_output = get_ci(df_input, point_estimate=3.5)
 
-        assert df_output.point_estimate.iloc[0] == pytest.approx(3.5)
+    #    assert df_output.point_estimate.iloc[0] == pytest.approx(3.5)
