@@ -1,6 +1,6 @@
 import pytest
 import pandas as pd
-from .functions import specify, generate, calculate, get_ci
+from pyfer.functions import specify, generate, calculate, get_ci
 
 class TestSpecify():
 
