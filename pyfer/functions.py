@@ -68,7 +68,7 @@ def calculate(data, stat="mean"):
     pd.DataFrame:
         Summarized data. Each row contains the summary statistic for a given resample.
     '''
-        if not isinstance(data, pd.DataFrame):
+    if not isinstance(data, pd.DataFrame):
         raise TypeError("Input should be a Pandas DataFrame")
     if stat=="Mean":
         raise TypeError("Input is incorrect. Did you mean 'mean'?")
