@@ -50,18 +50,17 @@ def generate(data, n_samples, type="bootstrap"):
     pd.DataFrame:
         Dataframe containing all resamples stacked vertically. Will keep all columns from the input data and an additional sample_id column to identify individual resamples.
     '''
+    if type not in ("bootstrap"):
+        raise ValueError("The only choice for argument 'type' is 'bootstrap', for now")
+
     df_output = pd.DataFrame()
 
     if type == "bootstrap":
         for i in range(n_samples):
-            # import pdb
-            # pdb.set_trace()
             bootstrap_sample = data.sample(n=len(data), replace=True)
             bootstrap_sample["sample_id"] = i
             df_output = pd.concat([df_output, bootstrap_sample])
             df_output.reset_index(inplace=True, drop=True)
-    else:
-        raise ValueError("The operation " + type + " does not exist.")
 
     return df_output
 
