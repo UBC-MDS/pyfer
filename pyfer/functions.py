@@ -75,8 +75,8 @@ def calculate(data, stat="mean"):
     if stat=="Median":
         raise TypeError("Input is incorrect. Did you mean 'median'?")
     if stat != "mean": raise Exception
-        data=data.groupby(['sample_id']).mean()
-        data.columns=['stat']
+    data=data.groupby(['sample_id']).mean()
+    data.columns=['stat']
     # if stat=="mean":
     #    data['stat']=""
     #    for i in range(1, data['sample_id'].max()+1):
