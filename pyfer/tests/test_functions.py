@@ -27,7 +27,7 @@ class TestSpecify():
         df_input = pd.DataFrame(columns=["response", "unused_col"],
                                 data=[[1,2],[2,3],[3,4]])
         df_output = specify(data=df_input, response="response")
-        
+
         assert df_output.columns.tolist() == ["response"]
 
     def test_wrong_response_col(self):
@@ -49,7 +49,7 @@ class TestGenerate():
         df_input = pd.DataFrame(columns=["response"], data=[1,2,3])
         df_output = generate(data=df_input, n_samples=3)
 
-        assert df_output.shape == (9,1)
+        assert df_output.shape == (9,2)
 
     def test_empty_dataframe(self):
         '''
