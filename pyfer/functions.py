@@ -27,12 +27,12 @@ def specify(data, response, explanatory=None):
 
     if explanatory:
         columns.extend(explanatory)
-        
+
     df_output = data[columns]
 
     return df_output
 
-def generate(data, n_samples, type="boostrap"):
+def generate(data, n_samples, type="bootstrap"):
     '''
     Generate bootstrap resamples and permutations
 
@@ -50,7 +50,19 @@ def generate(data, n_samples, type="boostrap"):
     pd.DataFrame:
         Dataframe containing all resamples stacked vertically. Will keep all columns from the input data and an additional sample_id column to identify individual resamples.
     '''
-    return
+    if type not in ("bootstrap"):
+        raise ValueError("The only choice for argument 'type' is 'bootstrap', for now")
+
+    df_output = pd.DataFrame()
+
+    if type == "bootstrap":
+        for i in range(n_samples):
+            bootstrap_sample = data.sample(n=len(data), replace=True)
+            bootstrap_sample["sample_id"] = i
+            df_output = pd.concat([df_output, bootstrap_sample])
+            df_output.reset_index(inplace=True, drop=True)
+
+    return df_output
 
 def calculate(data, stat="mean"):
     '''
@@ -86,31 +98,30 @@ def get_ci(data, level=0.95, point_estimate=None):
     pd.DataFrame
         Dataframe containing 1 row and columns for Statistic (Point Estimate), significance level, Lower Bound and Upper Bound.
     '''
-        
+
     #Checking if input is dataframe
     if not isinstance(data,pd.DataFrame):
         raise TypeError("Input should be a Pandas dataframe")
-    
+
     #Checking if level is float/int
     if not isinstance(level,float):
         if not (level == 0 or level == 1):
             raise TypeError("Level should be of type: float or 0,1")
-    
+
     #Checking if level is within range
     if (level < 0 or level > 1):
         raise ValueError("Level should be a value between 0 and 1")
-    
+
     quant_arr = np.array([(1-level)/2,level+((1-level)/2)])
-    
+
     # Make sure 'stat' is in calculate function
     X_n = data['stat'].quantile(quant_arr)
-    
+
     X_t = pd.DataFrame(X_n)
     X_t = X_t.transpose()
-    X_t['Point Estimate'] = data['stat'].mean() #Ask about this
-    X_i = X_t.set_index([pd.Index([level])])
-    X_i.index.name = "Confidence Level"
-    #X_i.rename(columns = {X_i.columns[0]:round(X_i.columns[0],3),X_i.columns[1]:round(X_i.columns[1],3)},inplace=True)
-    X_i.rename(columns = {X_i.columns[0]:"Lower Bound",X_i.columns[1]:"Upper Bound"},inplace=True)
-    
-    return X_i
+    X_t['point_estimate'] = point_estimate
+    X_t['significance_level'] = level
+    X_t.reset_index(inplace=True, drop=True)
+    X_t.rename(columns = {X_t.columns[0]:"lower_bound",X_t.columns[1]:"upper_bound"},inplace=True)
+
+    return X_t
