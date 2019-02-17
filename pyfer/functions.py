@@ -101,25 +101,25 @@ def get_ci(data, level=0.95, point_estimate=None):
     pd.DataFrame
         Dataframe containing 1 row and columns for Statistic (Point Estimate), significance level, Lower Bound and Upper Bound.
     '''
-        
+
     #Checking if input is dataframe
     if not isinstance(data,pd.DataFrame):
         raise TypeError("Input should be a Pandas dataframe")
-    
+
     #Checking if level is float/int
     if not isinstance(level,float):
         if not (level == 0 or level == 1):
             raise TypeError("Level should be of type: float or 0,1")
-    
+
     #Checking if level is within range
     if (level < 0 or level > 1):
         raise ValueError("Level should be a value between 0 and 1")
-    
+
     quant_arr = np.array([(1-level)/2,level+((1-level)/2)])
-    
+
     # Make sure 'stat' is in calculate function
     X_n = data['stat'].quantile(quant_arr)
-    
+
     X_t = pd.DataFrame(X_n)
     X_t = X_t.transpose()
     X_t['Point Estimate'] = data['stat'].mean() #Ask about this
@@ -127,5 +127,5 @@ def get_ci(data, level=0.95, point_estimate=None):
     X_i.index.name = "Confidence Level"
     #X_i.rename(columns = {X_i.columns[0]:round(X_i.columns[0],3),X_i.columns[1]:round(X_i.columns[1],3)},inplace=True)
     X_i.rename(columns = {X_i.columns[0]:"Lower Bound",X_i.columns[1]:"Upper Bound"},inplace=True)
-    
+
     return X_i
