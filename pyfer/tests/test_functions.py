@@ -150,7 +150,7 @@ class TestGet_ci():
                           ])
         df_output = get_ci(df_input, level=0.8)
 
-        assert df_output.shape == (1,3)
+        assert df_output.shape == (1,4)
 
     def test_correct_bounds(self):
         '''
@@ -163,8 +163,8 @@ class TestGet_ci():
                           ])
         df_output = get_ci(df_input, level=0.8)
 
-        assert df_output['Lower Bound'].iloc[0] == pytest.approx(1.0)
-        assert df_output['Upper Bound'].iloc[0] == pytest.approx(9.0)
+        assert df_output['lower_bound'].iloc[0] == pytest.approx(1.0)
+        assert df_output['upper_bound'].iloc[0] == pytest.approx(9.0)
 
     def test_wrong_signif_level(self):
         '''
