@@ -106,8 +106,8 @@ class TestCalculate:
         df_input = pd.DataFrame(columns=["response", "sample_id"],
                               data=[[1,1],[2,1],[2,2],[3,2],[3,3],[4,3]])
         df_output = calculate(df_input)
-        assert df_output['stat'].dtype == "numpy.int64"
-        assert df_output['stat'][3] == 3.5
+        assert df_output['stat'].dtype == "float64"
+        assert df_output.loc[df_output['sample_id']==3]['stat'][2] == 3.5
 
     def test_empty_dataframe(self):
         '''
