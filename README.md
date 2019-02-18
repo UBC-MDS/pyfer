@@ -1,5 +1,6 @@
 # Pyfer
 
+
 |Name |Github |
 |-|-|
 |Gabriel Bogo|[@GabrielBogo](https://github.com/GabrielBogo)|
@@ -14,13 +15,20 @@ The `infer` package in R streamlines the process of reshuffling and bootstrappin
 
 With this package as the inspiration, `pyfer` will have four main functions (`specify`,`generate`,`calculate`,`get_ci`) for the first iteration. These functions will, given a data frame and the specified response variable; calculate summary statistics and confidence intervals for the response variable. Further details follow in the description of the functions below.
 
-##### Where does `pyfer` fit into the Python ecosystem?
+### Where does `pyfer` fit into the Python ecosystem?
 
-Currently, there isn't a package in Python's ecosystem (according to our not so thorough research) that does a great job at replicating the `infer` package's functionality and easy-of-use. Therefore, we hope that this package will provide the basic tools to perform statistical inference using expressive code in Python.
+Currently, there isn't a package in Python's ecosystem that does a great job at replicating the `infer` package's functionality, easy-of-use, and use of expressive statistical grammar. Pyfer fills that gap and provides the basic tools to perform statistical inference in Python.
 
-## Functions
+## Installing `pyfer`
+
+To install using pip, on your command line type:
+
+`pip install git+https://github.com/UBC-MDS/pyfer.git`
+
+## Functions & Usage
 
 **specify(data, response, explanatory)**  
+
 
     Choose specific columns to feed the subsequent pipeline.
 
@@ -37,7 +45,9 @@ Currently, there isn't a package in Python's ecosystem (according to our not so 
     pd.DataFrame:
         Dataframe containing one column for response variable and zero or more columns for the explanatory variables. The first column is always the response.
 
+
 **generate(data, n_samples, type="boostrap")**  
+
 
     Generate bootstrap resamples and permutations
 
@@ -74,7 +84,8 @@ Currently, there isn't a package in Python's ecosystem (according to our not so 
         Summarized data. Each row contains the summary statistic for a given resample.
 
 
-**get_ci(data, alpha=0.05, point_estimate=None)**  
+**get_ci(data, level=0.95, point_estimate=None)**  
+
 
     Return the bootstrap confidence interval for a point estimate.
 
@@ -82,10 +93,32 @@ Currently, there isn't a package in Python's ecosystem (according to our not so 
     ---------------
     data: pd.DataFrame
         A Dataframe containing summarizing statistics from multiple resamples. Typically it's the output of a `calculate` function.
-    interval: float
+    level: float
         Significance level of the confidence interval. Example: 0.05 (default) represents the 95% confidence interval.
-
+	point_estimate: float
+		A float representing the value of the point estimate that is input by the user. Note: not implemented as of writing.
+	
+	
     Returns:
     ---------------
     pd.DataFrame
-        Dataframe containing 1 row and columns for Statistic (Point Estimate), significance level, Lower Bound and Upper Bound.
+        Dataframe containing 1 row and columns for Statistic (Point Estimate), Significance Level, Lower Bound and Upper Bound.
+
+
+## Usage example (with Pandas)
+
+```
+import pandas as pd
+import numpy as np
+
+#Loading pyfer into the Python environment
+import pyfer
+
+#Loading a sample dataset in Pandas
+mpg = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv')
+
+mpg_acc = specify(mpg,response="acceleration")
+mpg_resampled = generate(mpg_acc,n_samples=30,type="bootstrap")
+mpg_mean = calculate(mpg_resampled,stat="mean")
+mpg_ci = get_ci(mpg_mean,level=0.9,point_estimate=None)
+```
