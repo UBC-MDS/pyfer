@@ -73,14 +73,26 @@ def calculate(data, stat="mean"):
     data: pd.DataFrame
         A Dataframe generated from `generate` function with columns: response, sample_id and zero or more explanatory variables.
     stat: string
-        "mean" (default) or "median".
+        "mean" (default) or "median"(leave for further exploration)
 
     Returns:
     ---------------
     pd.DataFrame:
         Summarized data. Each row contains the summary statistic for a given resample.
     '''
-    return
+    if not isinstance(data, pd.DataFrame):
+        raise TypeError("Input should be a Pandas DataFrame")
+    if stat=="Mean":
+        raise TypeError("Input is incorrect. Did you mean 'mean'?")
+    if stat=="Median":
+        raise TypeError("Input is incorrect. Did you mean 'median'?")
+    if stat != "mean":
+        raise ValueError("Only 'mean' has been implemented so far.")
+
+    data=data.groupby(['sample_id'], as_index=False).mean()
+    data.columns=['sample_id','stat']
+
+    return data
 
 def get_ci(data, level=0.95, point_estimate=None):
     '''
