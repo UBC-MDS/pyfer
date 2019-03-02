@@ -59,14 +59,13 @@ class TestGenerate():
         with pytest.raises(Exception):
             df_output = generate(data=df_input, n_samples=3)
 
-    def test_zero_n_samples(self):
+    def test_non_positive_n_samples(self):
         '''
         Test function response with when n_samples = 0, expect empty DataFrame
         '''
         df_input = pd.DataFrame(columns=["response"], data=[1,2,3])
-        df_output = generate(data=df_input, n_samples=0)
-
-        assert df_output.empty == True
+        with pytest.raises(Exception):
+            df_output = generate(data=df_input, n_samples=0)
 
     def test_samples_exist(self):
         '''

@@ -75,8 +75,10 @@ To install using pip, on your command line type:
     ---------------
     data: pd.DataFrame
         A Dataframe generated from `generate` function with columns: response, sample_id and zero or more explanatory variables.
+    columns: string or list of strings
+        Column(s) that will be subsetted from the dataframe and summarized by 'stat'.
     stat: string
-        "mean" (default) or "median".
+        "mean" (default) or "median"(leave for further exploration)
 
     Returns:
     ---------------
@@ -97,8 +99,8 @@ To install using pip, on your command line type:
         Significance level of the confidence interval. Example: 0.05 (default) represents the 95% confidence interval.
 	point_estimate: float
 		A float representing the value of the point estimate that is input by the user. Note: not implemented as of writing.
-	
-	
+
+
     Returns:
     ---------------
     pd.DataFrame
@@ -109,16 +111,13 @@ To install using pip, on your command line type:
 
 ```
 import pandas as pd
-import numpy as np
-
-#Loading pyfer into the Python environment
 import pyfer
 
 #Loading a sample dataset in Pandas
 mpg = pd.read_csv('https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv')
 
-mpg_acc = specify(mpg,response="acceleration")
-mpg_resampled = generate(mpg_acc,n_samples=30,type="bootstrap")
-mpg_mean = calculate(mpg_resampled,stat="mean")
-mpg_ci = get_ci(mpg_mean,level=0.9,point_estimate=None)
+mpg_acc = pyfer.specify(mpg, response="acceleration")
+mpg_resampled = pyfer.generate(mpg_acc, n_samples=30, type="bootstrap")
+mpg_mean = pyfer.calculate(mpg_resampled, columns="acceleration", stat="mean")
+mpg_ci = pyfer.get_ci(mpg_mean,level=0.9, point_estimate=None)
 ```

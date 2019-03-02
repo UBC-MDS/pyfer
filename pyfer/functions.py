@@ -53,6 +53,9 @@ def generate(data, n_samples, type="bootstrap"):
     if type not in ("bootstrap"):
         raise ValueError("The only choice for argument 'type' is 'bootstrap', for now")
 
+    if n_samples <= 0:
+        raise ValueError("n_samples needs to be greater than 0")
+
     df_output = pd.DataFrame()
 
     if type == "bootstrap":
@@ -64,7 +67,7 @@ def generate(data, n_samples, type="bootstrap"):
 
     return df_output
 
-def calculate(data, stat="mean"):
+def calculate(data, columns="response", stat="mean"):
     '''
     Calculate a summarizing statistic for each bootstrap sample.
 
@@ -72,6 +75,8 @@ def calculate(data, stat="mean"):
     ---------------
     data: pd.DataFrame
         A Dataframe generated from `generate` function with columns: response, sample_id and zero or more explanatory variables.
+    columns: string or list of strings
+        Column(s) that will be subsetted from the dataframe and summarized by 'stat'.
     stat: string
         "mean" (default) or "median"(leave for further exploration)
 
@@ -89,7 +94,17 @@ def calculate(data, stat="mean"):
     if stat != "mean":
         raise ValueError("Only 'mean' has been implemented so far.")
 
-    data=data.groupby(['sample_id'], as_index=False).mean()
+    if type(columns) is str:
+        columns = [columns]
+    columns = ['sample_id'] + columns
+
+    for col in columns:
+        if col not in data.columns:
+            raise ValueError("Dataframe must have column '%s'." % col)
+
+    data = data[columns]
+
+    data=data.groupby(['sample_id'], as_index=False).agg(stat)
     data.columns=['sample_id','stat']
 
     return data
