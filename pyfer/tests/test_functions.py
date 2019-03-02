@@ -59,14 +59,13 @@ class TestGenerate():
         with pytest.raises(Exception):
             df_output = generate(data=df_input, n_samples=3)
 
-    def test_zero_n_samples(self):
+    def test_non_positive_n_samples(self):
         '''
         Test function response with when n_samples = 0, expect empty DataFrame
         '''
         df_input = pd.DataFrame(columns=["response"], data=[1,2,3])
-        df_output = generate(data=df_input, n_samples=0)
-
-        assert df_output.empty == True
+        with pytest.raises(Exception):
+            df_output = generate(data=df_input, n_samples=0)
 
     def test_samples_exist(self):
         '''
@@ -90,7 +89,7 @@ class TestCalculate:
         '''
         Test that the output's shape is coming out as expected.
         '''
-        df_input = pd.DataFrame(columns=["response", "sample_id"],
+        df_input = pd.DataFrame(columns=["stat", "sample_id"],
                               data=[[1,1],[2,1],[2,2],[3,2],[3,3],[4,3]])
         df_output = calculate(df_input)
         # Since the calculate is taking the output of generate as input,
@@ -103,7 +102,7 @@ class TestCalculate:
         '''
         Test that the output's statistic is coming out as expected.
         '''
-        df_input = pd.DataFrame(columns=["response", "sample_id"],
+        df_input = pd.DataFrame(columns=["stat", "sample_id"],
                               data=[[1,1],[2,1],[2,2],[3,2],[3,3],[4,3]])
         df_output = calculate(df_input)
         assert df_output['stat'].dtype == "float64"
