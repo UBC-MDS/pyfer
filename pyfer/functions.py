@@ -67,7 +67,7 @@ def generate(data, n_samples, type="bootstrap"):
 
     return df_output
 
-def calculate(data, columns="stat", stat="mean"):
+def calculate(data, columns="response", stat="mean"):
     '''
     Calculate a summarizing statistic for each bootstrap sample.
 
