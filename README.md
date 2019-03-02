@@ -75,8 +75,10 @@ To install using pip, on your command line type:
     ---------------
     data: pd.DataFrame
         A Dataframe generated from `generate` function with columns: response, sample_id and zero or more explanatory variables.
+    columns: string or list of strings
+        Column(s) that will be subsetted from the dataframe and summarized by 'stat'.
     stat: string
-        "mean" (default) or "median".
+        "mean" (default) or "median"(leave for further exploration)
 
     Returns:
     ---------------
