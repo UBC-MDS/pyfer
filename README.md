@@ -121,3 +121,9 @@ mpg_resampled = pyfer.generate(mpg_acc, n_samples=30, type="bootstrap")
 mpg_mean = pyfer.calculate(mpg_resampled, columns="acceleration", stat="mean")
 mpg_ci = pyfer.get_ci(mpg_mean,level=0.9, point_estimate=None)
 ```
+
+## Branch Coverage
+
+Because of the time limit, we were not able to get a 100% branch coverage. However, we get one that is very close. Here are the links for our screenshot:
+[screenshot1](https://github.com/UBC-MDS/pyfer/blob/img/img/coverage.png)
+[screenshot2](https://github.com/UBC-MDS/pyfer/blob/img/img/coverage2.png)
