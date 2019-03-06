@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/UBC-MDS/pyfer.svg?branch=master)](https://travis-ci.org/UBC-MDS/pyfer)
+
 # Pyfer
 
 
