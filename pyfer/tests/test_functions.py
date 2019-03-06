@@ -84,6 +84,14 @@ class TestGenerate():
         with pytest.raises(Exception):
           df_output = generate(data=df_input, n_samples=1e10000000)
 
+    def test_wrong_type(self):
+        '''
+        Test that function throws error when type is not implemented
+        '''
+        df_input = pd.DataFrame(columns=["response"], data=[1])
+        with pytest.raises(ValueError):
+          df_output = generate(data=df_input, n_samples=100, type="blabla")
+
 class TestCalculate:
     def test_shape_output(self):
         '''
