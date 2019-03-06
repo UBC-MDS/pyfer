@@ -86,7 +86,7 @@ class TestGenerate():
 
     def test_wrong_type(self):
         '''
-        Test function throws error when type is not implemented
+        Test that function throws error when type is not implemented
         '''
         df_input = pd.DataFrame(columns=["response"], data=[1])
         with pytest.raises(ValueError):
