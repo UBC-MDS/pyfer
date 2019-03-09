@@ -40,6 +40,25 @@ class TestSpecify():
         with pytest.raises(Exception):
             df_output = specify(data=df_input, response="asdfasdf")
 
+    def test_input_not_dataframe(self):
+        '''
+        Test function raises error when input is not dataframe
+        '''
+        df_input = "some string"
+        with pytest.raises(TypeError):
+            df_output = specify(data=df_input, response="response")
+
+    def test_response_not_string(self):
+        '''
+        Test function raises error when response is not a string
+        '''
+        df_input = pd.DataFrame(columns=["response", "unused_col"],
+                                data=[[1,2],[2,3],[3,4]])
+        response = 5
+        with pytest.raises(TypeError):
+            df_output = specify(data=df_input, response=response)
+
+
 
 class TestGenerate():
     def test_shape_output(self):
@@ -132,6 +151,14 @@ class TestCalculate:
         with pytest.raises(Exception):
             df_output = calculate(data=df_input, stat="asdfasdf")
 
+    def test_input_not_dataframe(self):
+        '''
+        Test function raises error when input is not dataframe
+        '''
+        df_input = "some string"
+        with pytest.raises(TypeError):
+            df_output = calculate(data=df_input)
+
 class TestGet_ci():
 
     def test_output_is_dataframe(self):
@@ -184,6 +211,14 @@ class TestGet_ci():
                           ])
         with pytest.raises(Exception):
             df_output = get_ci(df_input, alpha=1.3)
+
+    def test_input_not_dataframe(self):
+        '''
+        Test function raises error when input is not dataframe
+        '''
+        df_input = "some string"
+        with pytest.raises(TypeError):
+            df_output = get_ci(df_input)
 
     #def test_point_estimate(self):
     #    '''
