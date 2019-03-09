@@ -18,7 +18,7 @@ With that package as the inspiration, `pyfer` will have four main functions (`sp
 
 Currently, there isn't a package in Python's ecosystem that does a great job at replicating the `infer` package's functionality, easy-of-use, and use of expressive statistical grammar. Pyfer fills that gap and provides the basic tools to perform statistical inference in Python.
 
-## Installing `pyfer`s
+## Installing `pyfer`
 
 To install using pip, on your command line type:
 
